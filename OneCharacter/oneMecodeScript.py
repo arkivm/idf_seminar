@@ -1,0 +1,16 @@
+from mecode import G
+g = G(extrude=True)
+g.feed(1500)
+g.absolute()
+kwargs = {"E":0}
+g.abs_move(x=10,y=0,**kwargs)
+g.abs_move(x=10,y=7,**kwargs)
+g.abs_move(x=19,y=7,**kwargs)
+g.abs_move(x=19,y=38,**kwargs)
+g.abs_move(x=10,y=35,**kwargs)
+g.abs_move(x=10,y=42,**kwargs)
+g.abs_move(x=31, y=49,**kwargs)
+g.abs_move(x=31, y=7,**kwargs)
+g.abs_move(x=40, y=7,**kwargs)
+g.abs_move(x=40, y=0,**kwargs)
+g.abs_move(x=10, y=0,**kwargs)
