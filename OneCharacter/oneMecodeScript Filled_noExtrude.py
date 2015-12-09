@@ -4,8 +4,11 @@ from mecode import G
 
 #Filling the given axis aligned rectangle area by letting the print head move vertically
 def fillAreaVertical(x_start, y_start, x_end, y_end, printWidth):
+	
 	#setting head to initial position
+	g.extrude=False
 	g.abs_move(x_start, y_start)
+	g.extrude=True
 
 	up = True
 	i = 0
@@ -29,8 +32,11 @@ def fillAreaVertical(x_start, y_start, x_end, y_end, printWidth):
 
 #Filling an axis aligned 90 degree triangle, with the perpendicular sides parallel to the x and y axis
 def fillTriangleHor(x_left, y_left, width, height, printWidth):
+
 	#set head initial position
+	g.extrude=False
 	g.abs_move(x_left, y_left)
+	g.extrude=True
 
 	widthAdd =2 * width / (height /printWidth)
 	act_x_left = x_left
@@ -55,8 +61,11 @@ def fillTriangleHor(x_left, y_left, width, height, printWidth):
 #Filling an axis aligned 90 degree triangle, with the perpendicular sides parallel to the x and y axis
 #Caution: This only computes good results if width and height have the same value
 def fillTriangleDiag(x_left, y_left, width, height, printWidth):
+
 	#set head initial position
+	g.extrude=False
 	g.abs_move(x_left, y_left)
+	g.extrude=True
 	
 	right = True;
 	i = 0;
@@ -76,8 +85,11 @@ def fillTriangleDiag(x_left, y_left, width, height, printWidth):
 
 #Filling the given axis aligned rectangle area by letting the print head move horizontally
 def fillAreaHorizontal(x_start, y_start, x_end, y_end, printWidth):
+
 	#setting head to initial position
+	g.extrude=False
 	g.abs_move(x_start, y_start)
+	g.extrude=True
 
 	right = True
 	i = 0
@@ -95,8 +107,11 @@ def fillAreaHorizontal(x_start, y_start, x_end, y_end, printWidth):
 	return
 
 def fillYSheared(x_left, y_left, x_right, y_right, h_height, printWidth):
+
 	#setting to initial position
+	g.extrude=False
 	g.abs_move(x_left, y_left)
+	g.extrude=True
 
 	right = True
 	i = 0
