@@ -155,6 +155,37 @@ def fill_y_sheared(x_left, y_left, x_right, y_right, h_height, print_width):
     return
 
 
+#fillYSheared - vertical
+#Filling a sheared rectangle. 
+def fill_y_sheared_vertical(x_left, y_left, x_right, y_right, h_height, print_width):
+    #setting to initial position
+    normal_move(x_left, y_left)
+
+    width = x_right - x_left
+    offset = h_height *2 / ((y_right - y_left) / print_width)
+
+    actX = x_left
+    actY = y_left
+    
+    up = True
+    i = 0
+
+    while(actX < x_right):
+        if up:
+            actY = actY + h_height + offset
+            g.abs_move(x=actX, y=actY)
+            actX = actX + print_width
+            g.abs_move(x=actX, y=actY)
+            up = False
+        else:
+            actY = actY - h_height
+            g.abs_move(x=actX, y=actY)
+            actX = actX + print_width
+            g.abs_move(x=actX, y=actY)
+            up = True
+    return
+
+
 def init_shape_lib(g_object):
     global g
     g = g_object
