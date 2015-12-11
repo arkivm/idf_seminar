@@ -2,6 +2,77 @@ from mecode_wrapper import *
 
 g = None
 
+def fill_area_out_to_in(x_start, y_start, x_end, y_end, print_width):
+    """
+    Filling the given axis aligned rectangle area by letting the print head move vertically
+    :param x_start:
+    :param y_start:
+    :param x_end:
+    :param y_end:
+    :param print_width:
+    :return: none
+    """
+    # setting head to initial position
+    normal_move(x=x_start, y=y_start)
+    up = True
+    right = False
+    i = 0
+    x_center = (x_start + x_end) / 2
+    y_center = (y_start + y_end) / 2
+
+    hitMiddle = False
+    while(hitMiddle == False):
+        result = shift_to_center(x_start,y_end, x_center, y_center, print_width, i)
+        perform_move(result['overMiddle'], result['x'], result['y'])
+        result = shift_to_center(x_end,y_end, x_center, y_center, print_width, i)
+        perform_move(result['overMiddle'], result['x'], result['y'])
+        result = shift_to_center(x_end, y_start, x_center, y_center, print_width, i)
+        perform_move(result['overMiddle'], result['x'], result['y'])
+        result = shift_to_center(x_start,y_start, x_center, y_center, print_width, i)
+        perform_move(result['overMiddle'], result['x'], result['y']) #move to starting position
+        i = i + 1
+        result = shift_to_center(x_start,y_start, x_center, y_center, print_width, i) #move to new rectangle
+        perform_move(result['overMiddle'], result['x'], result['y'])
+        hitMiddle = result['overMiddle']
+
+    return
+
+def move_shifted_to_center(x, y, x_opposite, y_opposite, print_width, iteration):
+    x_center = (x+x_opposite)/2
+    y_center = (y+y_opposite)/2
+    result = shift_to_center(x, y, x_center, y_center, print_width, iteration)
+    perform_move(result['overMiddle'], result['x'], result['y'])
+    return result['overMiddle'] #returns whether we are in opposing territory
+
+def perform_move(overMiddle, x, y):
+    if overMiddle:
+       normal_move(x, y)
+    else:
+        g.abs_move(x, y)
+
+def shift_to_center(x, y, x_center, y_center, print_width, iteration):
+    done = False
+    if (x < x_center):
+        x = x + print_width * iteration
+        if (x >= x_center or abs(x - x_center) < print_width):
+            x = x_center
+            done = True
+    else:
+        x = x - print_width * iteration
+        if (x <= x_center or abs(x - x_center) < print_width):
+            x = x_center
+            done = True
+    if (y < y_center):
+        y = y + print_width * iteration
+        if (y >= y_center or abs(y - y_center) < print_width):
+            y = y_center
+            done = done & True
+    else:
+        y = y - print_width * iteration
+        if (y <= y_center or abs(y - y_center) < print_width):
+            y = y_center
+            done = done & True
+    return {'overMiddle': done, 'x': x, 'y': y}
 
 def fill_area_vertical(x_start, y_start, x_end, y_end, print_width):
     """
