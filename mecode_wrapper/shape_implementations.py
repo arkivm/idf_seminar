@@ -54,22 +54,22 @@ def shift_to_center(x, y, x_center, y_center, print_width, iteration):
     done = False
     if (x < x_center):
         x = x + print_width * iteration
-        if (x >= x_center or abs(x - x_center) < print_width):
+        if (x >= x_center):
             x = x_center
             done = True
     else:
         x = x - print_width * iteration
-        if (x <= x_center or abs(x - x_center) < print_width):
+        if (x <= x_center):
             x = x_center
             done = True
     if (y < y_center):
         y = y + print_width * iteration
-        if (y >= y_center or abs(y - y_center) < print_width):
+        if (y >= y_center):
             y = y_center
             done = done & True
     else:
         y = y - print_width * iteration
-        if (y <= y_center or abs(y - y_center) < print_width):
+        if (y <= y_center):
             y = y_center
             done = done & True
     return {'overMiddle': done, 'x': x, 'y': y}
