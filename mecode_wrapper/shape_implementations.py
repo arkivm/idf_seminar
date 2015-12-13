@@ -1,4 +1,4 @@
-from mecode_wrapper import *
+﻿from mecode_wrapper import *
 
 g = None
 
@@ -162,7 +162,7 @@ def fill_y_sheared_vertical(x_left, y_left, x_right, y_right, h_height, print_wi
     normal_move(x_left, y_left)
 
     width = x_right - x_left
-    offset = h_height *2 / ((y_right - y_left) / print_width)
+    offset = h_height * 2 / ((x_right - x_left) / print_width)
 
     actX = x_left
     actY = y_left

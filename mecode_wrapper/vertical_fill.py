@@ -1,4 +1,4 @@
-#!/usr/bin/python
+﻿#!/usr/bin/python
 
 from shape_implementations import *
 
@@ -31,7 +31,7 @@ def method1():
     print_outline()
     fill_area_vertical(10, 0, 40, 7, 0.2)
     fill_area_vertical(19, 7, 31, 38, 0.2)
-    fill_triangle_hor(19, 38, 12, 5, 0.2)
+    fill_triangle_hor(19, 38, 12, 4, 0.2)
     fill_y_sheared_vertical(10, 35, 31, 42, 7, 0.2)
 
 

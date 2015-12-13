@@ -1,4 +1,4 @@
-#!/usr/bin/python
+﻿#!/usr/bin/python
 
 from mecode import G
 
@@ -70,11 +70,11 @@ def normal_move(x = None, y = None, z = None):
     """
     args = ""
     if x is not None:
-        args += 'X%d ' % x
+        args += 'X%.6f ' % x
     if y is not None:
-        args += 'Y%d ' % y
+        args += 'Y%.6f ' % y
     if z is not None:
-        args += 'Z%d' % z
+        args += 'Z%.6f' % z
 
     g.write('G0 ' + args)
 
