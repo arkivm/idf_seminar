@@ -29,14 +29,14 @@ def method1():
     :return:none
     """
     #print_outline()
-    #fill_area_horizontal(10, 0, 40, 7, 0.2)
-    #fill_area_horizontal(19, 7, 31, 38, 0.2)
-    #fill_triangle_hor(19, 38, 12, 4, 0.2)
-    ##replaced the sheared rectangle with 2 triangles
-    #fill_triangle_hor(10, 42, 21, 7, 0.2)
-    #fill_triangle_hor_upside(10, 35, 21, 7, 0.2)
+    fill_area_horizontal(10, 0, 40, 7, 0.2)
+    fill_half_sheared(19, 7, 12, 31, 35, 0.2)
+    fill_y_sheared_vertical(10, 35, 31, 42, 7, 0.2)
 
-    fill_half_sheared(10, 10, 20, 10, 50, 0.2)
+    ##alternative
+    #fill_area_horizontal(10, 0, 40, 7, 0.2)
+    #fill_half_sheared(19, 7, 12, 38, 42, 0.2)
+    #fill_y_sheared(10, 35, 19, 38, 7, 0.2)
 
 
 if __name__=='__main__':
