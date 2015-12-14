@@ -184,6 +184,31 @@ def fill_triangle_hor_upside(x_left, y_left, width, height, print_width):
     g.set_extrusion_mult(temp)
     return
 
+def fill_half_sheared(x_left, y_left, width, h1, h2, printWidth):
+    #initialize
+    normal_move(x_left, y_left)
+
+    up = True
+    add_height = (h2 - h1) * 2 / (width/printWidth )
+
+    act_y = y_left + h1
+    i = 0
+
+    while (i <= width):
+        if up:
+            g.abs_move(x= x_left + i, y= act_y)
+            g.abs_move( x= x_left + i + printWidth, y = act_y)
+            act_y = act_y + add_height
+            up = False
+        else:
+            g.abs_move(x=x_left + i , y = y_left)
+            g.abs_move(x = x_left + i + printWidth, y = y_left)
+            up = True
+
+        i = i + printWidth
+    return
+
+
 
 def fill_triangle_diag(x_left, y_left, width, height, print_width):
     """
