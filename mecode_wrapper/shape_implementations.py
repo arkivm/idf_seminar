@@ -145,6 +145,46 @@ def fill_triangle_hor(x_left, y_left, width, height, print_width):
     return
 
 
+def fill_triangle_hor_upside(x_left, y_left, width, height, print_width):
+    """
+    Filling an axis aligned 90 degree triangle, with the perpendicular sides parallel to the x and y axis
+    :param x_left:
+    :param y_left:
+    :param width:
+    :param height:
+    :param print_width:
+    :return:
+    """
+    # set head initial position
+    normal_move(x=x_left, y=y_left)
+
+    temp = g.current_multiplier()
+    g.set_extrusion_mult(1)
+
+    width_add = 2 * width / (height /print_width)
+    act_x_right = x_left
+
+    right = True
+    i = 0
+
+    while (i <= height):
+        if right:
+            g.abs_move(x = act_x_right, y = y_left +i )
+            g.abs_move(x = act_x_right, y = y_left + i + print_width)
+            act_x_right = act_x_right + width_add
+            right = False
+        else:
+            g.abs_move(x = x_left, y = y_left + i)
+            g.abs_move(x = x_left, y = y_left + i + print_width)
+            right = True
+
+        i = i + print_width
+   
+   
+    g.set_extrusion_mult(temp)
+    return
+
+
 def fill_triangle_diag(x_left, y_left, width, height, print_width):
     """
     Filling an axis aligned 90 degree triangle, with the perpendicular sides parallel to the x and y axis
@@ -205,7 +245,7 @@ def fill_area_horizontal(x_start, y_start, x_end, y_end, print_width):
         i = i + print_width
     return
 
-
+#prints along the diagoal line
 def fill_y_sheared(x_left, y_left, x_right, y_right, h_height, print_width):
     # setting to initial position
     normal_move(x=x_left, y=y_left)
