@@ -57,6 +57,7 @@ M231 S[OPS_MODE] X[Min_Distance] Y[Retract] Z[Backslash] F[ReatrctMove] - Set OP
 M232 - Read and reset max. advance values
 """
 
+rate = { 'move': 9000, 'print': 1100 }
 g = G(extrude=True, extrusion_width=0.48, filament_diameter=1.75, setup=False, extrusion_multiplier=2)
 
 
@@ -68,7 +69,8 @@ def normal_move(x = None, y = None, z = None):
     :param z: z param
     :return: none
     """
-    args = ""
+    args = 'F%d ' % rate['move']
+
     if x is not None:
         args += 'X%.6f ' % x
     if y is not None:
@@ -77,6 +79,7 @@ def normal_move(x = None, y = None, z = None):
         args += 'Z%.6f' % z
 
     g.write('G0 ' + args)
+    g.write('G1 F%d' % rate['print'])
 
 
 def print_preamble():
@@ -184,7 +187,8 @@ def prepare_layer1():
     Prepares layer1 by lowering the Z to 0.1
     :return:
     """
-    g.write('G1 Z0.1 F1002')
+    g.feed(rate['print'])
+    g.write('G1 Z0.1')
 
 
 def set_tool(tool):
