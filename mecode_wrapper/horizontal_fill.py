@@ -23,24 +23,23 @@ def print_outline():
     g.abs_move(x=10, y=0)
 
 
-def method1():
+def method1(line_width=0.2):
     """
     Rectangle fill method. Divides the object into rectangles and fills it
     :return:none
     """
     print_outline()
-    fill_area_horizontal(10, 0, 40, 7, 0.2)
-    fill_area_horizontal(19, 7, 31, 38, 0.2)
-    fill_triangle_hor(19, 38, 12, 4, 0.2)
+    fill_area_horizontal(10, 0, 40, 7, line_width)
+    fill_area_horizontal(19, 7, 31, 38, line_width)
+    fill_triangle_hor(19, 38, 12, 4, line_width)
     #replaced the sheared rectangle with 2 triangles
-    fill_triangle_hor(10, 42, 21, 7, 0.2)
-    fill_triangle_hor_upside(10, 35, 21, 7, 0.2)
-
+    fill_triangle_hor(10, 42, 21, 7, line_width)
+    fill_triangle_hor_upside(10, 35, 21, 7, line_width)
 
 if __name__=='__main__':
     g = init_printer()
     init_shape_lib(g)
     prepare_layer1()
     set_tool(0)
-    method1()
+    method1(0.4)
     finish_printing()
