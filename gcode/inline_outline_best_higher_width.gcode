@@ -1,5 +1,4 @@
-C:\Python\Python35\python.exe C:/Users/Magnus/Desktop/Seminar/idf_seminar/mecode_wrapper/out_to_in_fill.py
-G90
+﻿G90
 M82
 M106 S0
 M140 S40
@@ -141,4 +140,4 @@ G0 Z100 F1200
 G28 X0
 M84
 
-Process finished with exit code 0
+
