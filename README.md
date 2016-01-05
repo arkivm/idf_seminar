@@ -18,3 +18,23 @@ Simple shape implementations with different infill patterns
 [gcode.ws](http://gcode.ws)
 
 [Java based closed source simulator](http://gcodeprintr.dietzm.de/#GCodeSimulator)
+
+## Installation
+----------------
+1. Download the current python version to your system and install it.
+https://www.python.org/downloads/
+
+2. Next install numpy. Use the command:
+`pip install numpy`
+
+3. Next install mecode. Download it from GitHub.
+https://github.com/jminardi/mecode and run the setup.py which installs mecode on your system.
+
+## Files
+--------
+
+### Mecode-wrapper
+This directory contains the implementation of the different filling patterns mecode scripts. All general filling patterns (triangle, rectangle, etc.) are placed in `shape_implementations.py` while the other files contain applications of the basic shape filling patterns to fill the "One" shape in different ways.
+
+###gCode
+This directory provides the generated .gcode files from the Mecode-wrapper directory. You can copy their contents to your simulator or 3D printer to get a visualization of the printed object.
