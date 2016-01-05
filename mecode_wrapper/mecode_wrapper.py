@@ -63,7 +63,7 @@ g = G(extrude=True, extrusion_width=0.48, filament_diameter=1.75, setup=False, e
 
 def normal_move(x = None, y = None, z = None):
     """
-    Perform a normal move with G0
+    Perform a normal move with G0. So the printer head moves to the given position without printing.
     :param x: x param
     :param y: y param
     :param z: z param

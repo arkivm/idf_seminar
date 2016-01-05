@@ -74,15 +74,23 @@ def shift_to_center(x, y, x_center, y_center, print_width, iteration):
             done = done & True
     return {'overMiddle': done, 'x': x, 'y': y}
 
+
+#Basic shape implementations
+
 def fill_area_vertical(x_start, y_start, x_end, y_end, print_width):
     """
-    Filling the given axis aligned rectangle area by letting the print head move vertically
-    :param x_start:
-    :param y_start:
-    :param x_end:
-    :param y_end:
-    :param print_width:
-    :return: none
+    Filling an 2D axis aligned rectangle area given by the lower left corner and the upper right corner by letting the print head only move vertically.
+
+     _______
+    |       |
+    |       |
+    |_______|    
+
+    :param x_start: x coordinate of the lower left corner of the area rectangle
+    :param y_start: y coordinate of the lower left corner of the area rectangle
+    :param x_end: x coordinate of the upper right corner of the area rectangle
+    :param y_end: y coordinate of the upper right corner of the area rectangle
+    :param print_width: the width of the printer head extrudion.
     """
     # setting head to initial position
     normal_move(x=x_start, y=y_start)
@@ -109,13 +117,18 @@ def fill_area_vertical(x_start, y_start, x_end, y_end, print_width):
 
 def fill_triangle_hor(x_left, y_left, width, height, print_width):
     """
-    Filling an axis aligned 90 degree triangle, with the perpendicular sides parallel to the x and y axis
-    :param x_left:
-    :param y_left:
-    :param width:
-    :param height:
-    :param print_width:
-    :return:
+    Filling an axis aligned 90 degree triangle horizontally, with the perpendicular sides parallel to the x and y axis.
+
+       /|
+      / |
+     /  |
+    /___|
+
+    :param x_left: x coordinate of the lower left corner of the triangle
+    :param y_left: y coordinate of the lower left corner of the triangle
+    :param width: the distance from the lower left corner to the lower right corner of the triangle
+    :param height: the distance from the lower right corner to the upper peak of the triangle
+    :param print_width: the width of the printer head extrudion.
     """
     # set head initial position
     normal_move(x=x_left, y=y_left)
@@ -147,13 +160,19 @@ def fill_triangle_hor(x_left, y_left, width, height, print_width):
 
 def fill_triangle_hor_upside(x_left, y_left, width, height, print_width):
     """
-    Filling an axis aligned 90 degree triangle, with the perpendicular sides parallel to the x and y axis
-    :param x_left:
-    :param y_left:
-    :param width:
-    :param height:
-    :param print_width:
-    :return:
+    Filling an axis aligned 90 degree triangle hoizontally, with the perpendicular sides parallel to the x and y axis.
+
+     ____
+    |   /
+    |  /
+    | /
+    |/
+
+    :param x_left: x coordinate of the upper left corner of the triangle
+    :param y_left: y coordinate of the upper left corner of the triangle
+    :param width: the distance from the upper left corner to the upper right corner of the triangle
+    :param height: the distance from the upper left corner to the lower peak of the triangle
+    :param print_width: the width of the printer head extrudion.
     """
     # set head initial position
     normal_move(x=x_left, y=y_left)
@@ -184,7 +203,27 @@ def fill_triangle_hor_upside(x_left, y_left, width, height, print_width):
     g.set_extrusion_mult(temp)
     return
 
+
+
 def fill_half_sheared(x_left, y_left, width, h1, h2, printWidth):
+    """
+    Filling an quadrangle with an horizontal lower edge, and two horizontal edges with different heights so the upper edge can be diagonal.
+
+        /|
+       / | 
+      /  |
+     /   |
+    |    |
+    |____|
+
+    :param x_left: x coordinate of the lower left corner
+    :param y_left: y coordinate of the lower left corner
+    :param width: the distance from the lower left corner to the lower right corner 
+    :param h1: the height of the left side of the quadrangle - distance from the lower left corner to the upper left corner 
+    :param h2: the height of the right side of the quadrangle - distance from the lower right corner to the upper right corner 
+    :param print_width: the width of the printer head extrudion.
+    """
+
     #initialize
     normal_move(x_left, y_left)
 
@@ -212,14 +251,19 @@ def fill_half_sheared(x_left, y_left, width, h1, h2, printWidth):
 
 def fill_triangle_diag(x_left, y_left, width, height, print_width):
     """
-    Filling an axis aligned 90 degree triangle, with the perpendicular sides parallel to the x and y axis
+    Filling an axis aligned 90 degree triangle diagonally, with the perpendicular sides parallel to the x and y axis
     Caution: This only computes good results if width and height have the same value
-    :param x_left:
-    :param y_left:
-    :param width:
-    :param height:
-    :param print_width:
-    :return:
+
+       /|
+      / |
+     /  |
+    /___|
+
+    :param x_left: x coordinate of the lower left corner of the triangle
+    :param y_left: y coordinate of the lower left corner of the triangle
+    :param width: the distance from the lower left corner to the lower right corner of the triangle
+    :param height: the distance from the lower right corner to the upper peak of the triangle
+    :param print_width: the width of the printer head extrudion.
     """
 
     # set head initial position
@@ -244,12 +288,17 @@ def fill_triangle_diag(x_left, y_left, width, height, print_width):
 def fill_area_horizontal(x_start, y_start, x_end, y_end, print_width):
     """
     Filling the given axis aligned rectangle area by letting the print head move horizontally
-    :param x_start:
-    :param y_start:
-    :param x_end:
-    :param y_end:
-    :param print_width:
-    :return:
+    
+     _______
+    |       |
+    |       |
+    |_______|    
+
+    :param x_start: x coordinate of the lower left corner of the area rectangle
+    :param y_start: y coordinate of the lower left corner of the area rectangle
+    :param x_end: x coordinate of the upper right corner of the area rectangle
+    :param y_end: y coordinate of the upper right corner of the area rectangle
+    :param print_width: the width of the printer head extrudion.
     """
 
     # setting head to initial position
@@ -270,8 +319,26 @@ def fill_area_horizontal(x_start, y_start, x_end, y_end, print_width):
         i = i + print_width
     return
 
-#prints along the diagoal line
+
 def fill_y_sheared(x_left, y_left, x_right, y_right, h_height, print_width):
+    """
+    Filling a sheared quadrangle with the vertical edges aligned to the y-axis diagonally.
+
+        .'|
+      .'  |  
+    .'    |
+    |    .'
+    |  .'  
+    |.'   
+
+
+    :param x_left: x coordinate of the lower left corner of the area rectangle
+    :param y_left: y coordinate of the lower left corner of the area rectangle
+    :param x_right: x coordinate of the lower right corner of the area rectangle
+    :param y_right: y coordinate of the lower right corner of the area rectangle
+    :param h_height: distance from the lower corners to the opposite upper conrner.
+    :param print_width: the width of the printer head extrudion.
+    """
     # setting to initial position
     normal_move(x=x_left, y=y_left)
 
@@ -291,9 +358,27 @@ def fill_y_sheared(x_left, y_left, x_right, y_right, h_height, print_width):
     return
 
 
-#fillYSheared - vertical
-#Filling a sheared rectangle. 
+
 def fill_y_sheared_vertical(x_left, y_left, x_right, y_right, h_height, print_width):
+    """
+    Filling a sheared quadrangle with the vertical edges aligned to the y-axis vertically.
+
+        .'|
+      .'  |  
+    .'    |
+    |    .'
+    |  .'  
+    |.'   
+
+
+    :param x_left: x coordinate of the lower left corner of the area rectangle
+    :param y_left: y coordinate of the lower left corner of the area rectangle
+    :param x_right: x coordinate of the lower right corner of the area rectangle
+    :param y_right: y coordinate of the lower right corner of the area rectangle
+    :param h_height: distance from the lower corners to the opposite upper conrner.
+    :param print_width: the width of the printer head extrudion.
+    """
+
     #setting to initial position
     normal_move(x_left, y_left)
 
@@ -322,6 +407,10 @@ def fill_y_sheared_vertical(x_left, y_left, x_right, y_right, h_height, print_wi
     return
 
 
+
 def init_shape_lib(g_object):
+    """
+    Initialize fuction. This Creates a new mecode object. Call this before using the filling methods.
+    """
     global g
     g = g_object
