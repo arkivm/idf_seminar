@@ -47,7 +47,6 @@ This directory provides the generated .gcode files from the Mecode-wrapper
 directory. You can copy their contents to your simulator or 3D printer to get a
 visualization of the printed object.
 
-## stl_files
-------------
+### stl_files
 This directory contains 3d model files of number '1', which can be fed into
 programs like `Slic3r` to generate the gcode.
