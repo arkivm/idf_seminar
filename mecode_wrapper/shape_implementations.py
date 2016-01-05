@@ -38,6 +38,26 @@ def fill_area_out_to_in(x_start, y_start, x_end, y_end, print_width):
     return
 
 def move_shifted_to_center(x, y, x_opposite, y_opposite, print_width, iteration):
+	'''
+	:param x:
+	:param y:
+	:param x_opposite:
+	:param y_opposite:
+	:param print_width:
+	:param iteration:
+	:return: boolean
+	this gets two points
+	(x,y)   -          |
+	 |    center          |
+	|       -  (x_opposite, y_oppsite)
+	 and shifts the first point (x,y) towards the center (using  shift_to_center)
+	 (print_width * iteration) units
+	 
+	 it then moves the printer head to the shifted point
+	 and !only prints! if it does not end up over the end of the center between the two given points
+	 ! This works well for printing shapes that are rather RECTANGULAR
+	 ! OTHER SHAPES may pose problems and inspecting the gcode to prevent printing on the same coordinate again is recommended
+	'''
     x_center = (x+x_opposite)/2
     y_center = (y+y_opposite)/2
     result = shift_to_center(x, y, x_center, y_center, print_width, iteration)
@@ -45,12 +65,16 @@ def move_shifted_to_center(x, y, x_opposite, y_opposite, print_width, iteration)
     return result['overMiddle'] #returns whether we are in opposing territory
 
 def perform_move(overMiddle, x, y):
+	# performs move, and only prints if we are in territory that should not be filled yet
+	# 
     if overMiddle:
        normal_move(x, y)
     else:
         g.abs_move(x, y)
 
 def shift_to_center(x, y, x_center, y_center, print_width, iteration):
+	#shifts the first point (x,y) towards the center point, but never over the center point
+	# (print_width * iteration) units
     done = False
     if (x < x_center):
         x = x + print_width * iteration

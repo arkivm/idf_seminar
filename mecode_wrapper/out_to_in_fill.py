@@ -1,46 +1,19 @@
 from shape_implementations import *
 
+print_width = 0.48 #printer head width
+print_iterations = 12 #how many layers from outside to inside
+#the out_to_in_fill is coded to generate the gcode for a 1-shape that is filled by going from the outside, to the inside in 12 iterations
+#see (see move_shifted_to_center) to see the logic
 
-def abs_move_shrink(x, y, down_x, down_y, rec, invert):
-    print_width = 0.48
-    if down_x:
-        into_x = 1
-    else:
-        into_x = -1
-
-    if down_y:
-        into_y = 1
-    else:
-        into_y = -1
-
-    if invert:
-        into_x *= -1
-        into_y *= -1
-        x += rec * print_width * into_x
-        y += rec * print_width * into_y
-        g.abs_move(x, y)
-        return {'x_goal': x + print_width * into_x, 'y_goal': y + print_width * into_y}
-
-
-def print_outline(rec, do_invert):
-    abs_move_shrink(x=10, y=0, down_x=False, down_y=False, rec=rec, invert=do_invert)
-    abs_move_shrink(x=10, y=7, down_x=False, down_y=True, rec=rec, invert=do_invert)
-    abs_move_shrink(x=19, y=7, down_x=False, down_y=True, rec=rec, invert=do_invert)
-    corner_1 = abs_move_shrink(x=19,y=38, down_x =False, down_y=False, rec = rec, invert=do_invert)
-    abs_move_shrink(x=10, y=35, down_x=False, down_y=False, rec=rec, invert=do_invert)
-    abs_move_shrink(x=10, y=42, down_x=False, down_y=True, rec=rec, invert=do_invert)
-    abs_move_shrink(x=31, y=49, down_x=True, down_y=True, rec=rec, invert=do_invert)
-    corner_2 = abs_move_shrink(x=31, y=7, down_x=True, down_y=True, rec = rec, invert=do_invert)
-    abs_move_shrink(x=40, y=7, down_x=True, down_y=True, rec=rec, invert=do_invert)
-    abs_move_shrink(x=40, y=0, down_x=True, down_y=False, rec=rec, invert=do_invert)
-    abs_move_shrink(x=10, y=0, down_x=False, down_y=False, rec=rec, invert=do_invert)
-    return {'x1': corner_1['x_goal'], 'y1': corner_1['y_goal'], 'x2': corner_2['x_goal'], 'y2': corner_2['y_goal']}
-
-def print_outline2(print_width):
+def print_outline(print_width):
     done = False
-    g.abs_move(x=10, y =0)
+    g.abs_move(x=10, y =0) #move to the first position
     i = 0
-    while (i < 13):
+    while (i < print_iterations):
+		#hard coded coordinates for printing the outmost outline follow
+		#they get shifted towards the center (see move_shifted_to_center) with increasing i
+		#you might notice that there is a symmetry - the destination point of one move is opposed to the destination point of another move
+		#and vice-versa, wherever possible. This is desirable and helps printing over the same area again
         done = True
         done = done & move_shifted_to_center(10, 7, 40, 0, print_width, i)
         done = done & move_shifted_to_center(19, 7, 31, 0, print_width, i)
@@ -53,27 +26,16 @@ def print_outline2(print_width):
         done = done & move_shifted_to_center(40, 0, 10, 7, print_width, i)
         done = done & move_shifted_to_center(10, 0, 40, 7, print_width, i)
         i = i + 1
-        done = done & move_shifted_to_center(10, 0, 40, 7, print_width, i)
+        done = done & move_shifted_to_center(10, 0, 40, 7, print_width, i) # move back to the first position
+		#'done' is used to demonstrate the possibility to not iterate a set number of  print iterations
+		# but instead stop printing when nothing was printed in this iteration (!experimental!)
     return
 
-def fill_out_to_in(start, finish):
-    for height in range (start, finish):
-        g.abs_move(z=height * 0.48)
-        for outlineRecursions in range (0, 7):
-            corners = print_outline(outlineRecursions,True) #prints the outline except for a corpus
-        #if height == start or height == finish - 1:
-             #fill_area_out_to_in(corners['x1'], corners['y2'], corners['x2'], corners['y1'], 0.48)
-            #fill_area_vertical(corners['x1'], corners['y2'], corners['x2'], corners['y1'], 0.48)
-
-def method2():
-    fill_out_to_in(0, 1)
-
 if __name__=='__main__':
+	#overhead for initalizing the printer is included
     g = init_printer()
     init_shape_lib(g)
     prepare_layer1()
     set_tool(0)
-    print_outline2(0.48)
-    #fill_area_out_to_in(0, 0, 24, 10, 0.48)
-    #method2()
+    print_outline(print_width) # most important
     finish_printing()
