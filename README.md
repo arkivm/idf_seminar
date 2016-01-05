@@ -30,11 +30,24 @@ https://www.python.org/downloads/
 3. Next install mecode. Download it from GitHub.
 https://github.com/jminardi/mecode and run the setup.py which installs mecode on your system.
 
+4. Install Repetierhost software - to interact with the printer
+[Repetierhost download](http://www.repetier.com/download-now/)
+
 ## Files
 --------
 
 ### Mecode-wrapper
-This directory contains the implementation of the different filling patterns mecode scripts. All general filling patterns (triangle, rectangle, etc.) are placed in `shape_implementations.py` while the other files contain applications of the basic shape filling patterns to fill the "One" shape in different ways.
+This directory contains the implementation of the different filling patterns
+mecode scripts. All general filling patterns (triangle, rectangle, etc.) are
+placed in `shape_implementations.py` while the other files contain applications
+of the basic shape filling patterns to fill the "One" shape in different ways.
 
 ###gCode
-This directory provides the generated .gcode files from the Mecode-wrapper directory. You can copy their contents to your simulator or 3D printer to get a visualization of the printed object.
+This directory provides the generated .gcode files from the Mecode-wrapper
+directory. You can copy their contents to your simulator or 3D printer to get a
+visualization of the printed object.
+
+## stl_files
+------------
+This directory contains 3d model files of number '1', which can be fed into
+programs like `Slic3r` to generate the gcode.
